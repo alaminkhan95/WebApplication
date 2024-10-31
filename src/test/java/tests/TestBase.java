@@ -1,5 +1,6 @@
 package tests;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -12,7 +13,8 @@ import utils.ConfigReader;
 import java.time.Duration;
 
 public class TestBase {
-    private WebDriver driver;
+    public WebDriver driver;
+
     @BeforeClass
     @Parameters("browser")
     public void setUp(String browser) {
@@ -37,7 +39,6 @@ public class TestBase {
         // Load URL from config.properties
         String url = ConfigReader.getProperty("url");
         driver.get(url);
-
     }
 
     @AfterClass

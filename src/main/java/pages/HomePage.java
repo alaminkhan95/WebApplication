@@ -1,29 +1,36 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.Utils;
+
+import java.time.Duration;
 
 public class HomePage {
-
     private WebDriver driver;
 
-    // Locators using @FindBy annotation
-    @FindBy(id = "username")
+    @FindBy(xpath = "//input[@name='username']")
     private WebElement usernameField;
 
-    @FindBy(id = "password")
+    @FindBy(xpath = "//input[@name='password']")
     private WebElement passwordField;
 
-    @FindBy(id = "login")
+    @FindBy(xpath = "//button[contains(@class, 'orangehrm-login-button') and text()=' Login ']")
     private WebElement loginButton;
 
-    @FindBy(id = "error-message") // Assuming this is the locator for the error message
+    @FindBy(xpath = "//p[contains(@class, 'oxd-alert-content-text')]")
     private WebElement errorMessageElement;
 
-    @FindBy(xpath = "//img[@alt='company-branding']") // Assuming this is the locator for the error message
-    private WebElement logoMiddlePage;
+    @FindBy(xpath = "//img[@alt='company-branding']")
+    private WebElement logo;
+
+    @FindBy(xpath = "//h5[contains(@class, 'orangehrm-login-title') and text()='Login']")
+    private WebElement txtLogin;
 
     // Constructor
     public HomePage(WebDriver driver) {
@@ -48,6 +55,9 @@ public class HomePage {
 
     // Method to get the error message text
     public String getErrorMessage() {
+        // Create an instance of WebDriverWait
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOf(errorMessageElement));
         return errorMessageElement.getText();
     }
 }

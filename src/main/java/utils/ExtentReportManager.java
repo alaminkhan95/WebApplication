@@ -24,7 +24,7 @@ public class ExtentReportManager implements ITestListener, ISuiteListener {
 
         sparkReporter.config().setDocumentTitle("Automation Report"); // Title of report
         sparkReporter.config().setReportName("Functional Testing"); // name of the report
-        sparkReporter.config().setTheme(Theme.DARK);
+        sparkReporter.config().setTheme(Theme.STANDARD);
 
         extent = new ExtentReports();
         extent.attachReporter(sparkReporter);
