@@ -1,18 +1,22 @@
 package pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.Utils;
 
-import java.time.Duration;
+import static utils.Utils.hoverOverElement;
+import static utils.Utils.waitUntilVisible;
 
 public class HomePage {
     private WebDriver driver;
+
+
+    // Constructor
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
     @FindBy(xpath = "//input[@name='username']")
     private WebElement usernameField;
@@ -32,11 +36,18 @@ public class HomePage {
     @FindBy(xpath = "//h5[contains(@class, 'orangehrm-login-title') and text()='Login']")
     private WebElement txtLogin;
 
-    // Constructor
-    public HomePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this); // Initialize elements
-    }
+    @FindBy(xpath = "//a[@href='https://www.linkedin.com/company/orangehrm/mycompany/']")
+    private WebElement iconLinkedin;
+
+    @FindBy(xpath = "//a[@href='https://www.facebook.com/OrangeHRM/']")
+    private WebElement iconFacebook;
+
+    @FindBy(xpath = "//a[@href='https://twitter.com/orangehrm?lang=en']")
+    private WebElement iconTwitter;
+
+    @FindBy(xpath = "//a[@href='https://www.youtube.com/c/OrangeHRMInc']")
+    private WebElement iconYoutube;
+
 
     // Method to enter username
     public void enterUsername(String username) {
@@ -53,11 +64,45 @@ public class HomePage {
         loginButton.click();
     }
 
+    public boolean logoDisplayed() {
+
+        waitUntilVisible(driver,logo,30);
+        return logo.isDisplayed();
+    }
+
     // Method to get the error message text
     public String getErrorMessage() {
-        // Create an instance of WebDriverWait
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        wait.until(ExpectedConditions.visibilityOf(errorMessageElement));
+        waitUntilVisible(driver,errorMessageElement,30);
         return errorMessageElement.getText();
     }
+
+    public String getTextLogin(){
+
+       return txtLogin.getText();
+    }
+    public String getLinkOnHoverLinkedin() {
+        hoverOverElement(driver,iconLinkedin);
+        return iconLinkedin.getAttribute("href");
+    }
+
+    public String getLinkOnHoverFacebook() {
+
+        hoverOverElement(driver,iconFacebook);
+        return iconFacebook.getAttribute("href");
+
+    }
+
+    public String getLinkOnHoverTwitter() {
+        hoverOverElement(driver,iconTwitter);
+        return iconTwitter.getAttribute("href");
+
+    }
+
+    public String getLinkOnHoverYoutube() {
+        hoverOverElement(driver,iconYoutube);
+        return iconYoutube.getAttribute("href");
+
+    }
+
+
 }

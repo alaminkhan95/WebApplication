@@ -1,22 +1,15 @@
 package tests;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.HomePage;
-import utils.PageLocatorActions;
+import utils.ConfigReader;
 import utils.Utils;
 
-import java.time.Duration;
-
-import static java.sql.DriverManager.getDriver;
+import static utils.ConstatsCollection.*;
 
 public class HomepageTest extends TestBase {
     private HomePage homePage;
-    private WebDriverWait wait;
+    private Utils utils;
 
     @BeforeClass
     @Override
@@ -24,30 +17,54 @@ public class HomepageTest extends TestBase {
     public void setUp(String browser) {
         super.setUp(browser);
         homePage = new HomePage(driver);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    @Test
+    @Test(priority = 0)
     public void testInvalidUsernamePassword() {
         // Perform login action
         homePage.enterUsername("testuser");
         homePage.enterPassword("password123");
         homePage.clickLogin();
-
         Assert.assertEquals(homePage.getErrorMessage(), "Invalid credentials");
     }
 
-    @Test
+    @Test(priority = 7)
     public void optestLogo() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt='company-branding']")));
-        boolean status = driver.findElement(By.xpath("//img[@alt='company-branding']")).isDisplayed();
-        Assert.assertTrue(status);
+        Assert.assertTrue(homePage.logoDisplayed());
     }
 
-    @Test
+    @Test(priority = 6)
     public void optestAppUrl() {
-        Assert.assertEquals(driver.getCurrentUrl(), "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        String url = ConfigReader.getProperty("url");
+        Assert.assertEquals(driver.getCurrentUrl(), url);
     }
+    @Test(priority = 5)
+    public void testLogoText() {
+        Assert.assertEquals(homePage.getTextLogin(),"Login");
+    }
+
+    @Test(priority = 4)
+    public void testFooterIcons(){
+        Assert.assertEquals(homePage.getLinkOnHoverLinkedin(),HOMEPAGE_FOOTER_LINKEDIN_LINK);
+    }
+
+    @Test(priority = 3)
+    public void testFooterIconFaceBook(){
+        Assert.assertEquals(homePage.getLinkOnHoverFacebook(),HOMEPAGE_FOOTER_FACEBOOK_LINK);
+    }
+
+    @Test(priority = 2)
+    public void testFooterIconTweeter(){
+        Assert.assertEquals(homePage.getLinkOnHoverTwitter(),HOMEPAGE_FOOTER_TWEETER_LINK);
+    }
+
+    @Test(priority = 1)
+    public void testFooterIconYoutube(){
+        Assert.assertEquals(homePage.getLinkOnHoverYoutube(),HOMEPAGE_FOOTER_YOUTUBE_LINK);
+    }
+
+
+
 
     @AfterClass
     public void tearDown() {
