@@ -19,11 +19,11 @@ public class HomepageTest extends TestBase {
         homePage = new HomePage(driver);
     }
 
-    @Test(priority = 0)
-    public void testInvalidUsernamePassword() {
+    @Test(priority = 0,dataProvider = "employeeData")
+    public void testInvalidUsernamePassword(String testuser, String Password) {
         // Perform login action
-        homePage.enterUsername("testuser");
-        homePage.enterPassword("password123");
+        homePage.enterUsername(testuser);
+        homePage.enterPassword(Password);
         homePage.clickLogin();
         Assert.assertEquals(homePage.getErrorMessage(), "Invalid credentials");
     }
@@ -61,6 +61,15 @@ public class HomepageTest extends TestBase {
     @Test(priority = 1)
     public void testFooterIconYoutube(){
         Assert.assertEquals(homePage.getLinkOnHoverYoutube(),HOMEPAGE_FOOTER_YOUTUBE_LINK);
+    }
+
+    @DataProvider(name = "employeeData")
+    public Object[][] employeeDataProvider() {
+        return new Object[][] {
+                {"testuser", "password123"},
+                {"testuser2", "password123"},
+
+        };
     }
 
 

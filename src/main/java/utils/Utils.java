@@ -25,6 +25,7 @@ public class Utils {
     }
 
     public static void hoverOverElement(WebDriver driver, WebElement webElement) {
+
         waitUntilVisible(driver, webElement, 30);
 
         if (webElement.isDisplayed()) {
