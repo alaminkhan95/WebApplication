@@ -4,6 +4,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import pages.AdminPage;
+import utils.ConfigReader;
 
 public class AdminTest extends TestBase{
 
@@ -15,6 +16,9 @@ public class AdminTest extends TestBase{
     public void setUp(String browser) {
         super.setUp(browser);
         adminPage = new AdminPage(driver); // Initialize the AdminPage
+
+        String url = ConfigReader.getProperty("url");
+        driver.get(url);
     }
 
     @AfterClass

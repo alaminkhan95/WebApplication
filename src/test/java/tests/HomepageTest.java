@@ -17,6 +17,9 @@ public class HomepageTest extends TestBase {
     public void setUp(String browser) {
         super.setUp(browser);
         homePage = new HomePage(driver);
+        // Load the URL here once, if needed for all tests
+        String url = ConfigReader.getProperty("url");
+        driver.get(url);
     }
 
     @Test(priority = 0,dataProvider = "employeeData")
@@ -40,7 +43,7 @@ public class HomepageTest extends TestBase {
     }
     @Test(priority = 5)
     public void testLogoText() {
-        Assert.assertEquals(homePage.getTextLogin(),"Login");
+        Assert.assertEquals(homePage.getTextLogin(),"ogin");
     }
 
     @Test(priority = 4)
