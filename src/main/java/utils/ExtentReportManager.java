@@ -26,7 +26,7 @@ public class ExtentReportManager implements ITestListener, ISuiteListener {
         sparkReporter.config().setReportName("Functional Testing"); // name of the report
         sparkReporter.config().setTheme(Theme.STANDARD);
 
-        extent = new ExtentReports();
+       extent  = new ExtentReports();
         extent.attachReporter(sparkReporter);
         extent.setSystemInfo("Computer Name", "localhost");
         extent.setSystemInfo("Environment", "QA");
@@ -47,6 +47,7 @@ public class ExtentReportManager implements ITestListener, ISuiteListener {
         ExtentTest extentTest = extent.createTest(result.getName()); // create new entry in the report
         extentTest.log(Status.FAIL, "Test Failed ! : " + result.getName());
         extentTest.log(Status.FAIL, "Test case failed cause is : " + result.getThrowable());
+
         test.set(extentTest); // Store the current test in ThreadLocal
     }
 

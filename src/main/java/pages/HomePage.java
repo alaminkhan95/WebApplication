@@ -17,7 +17,7 @@ public class HomePage {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
-
+//comment test
     @FindBy(xpath = "//input[@name='username']")
     private WebElement usernameField;
 
@@ -47,6 +47,9 @@ public class HomePage {
 
     @FindBy(xpath = "//a[@href='https://www.youtube.com/c/OrangeHRMInc']")
     private WebElement iconYoutube;
+
+    @FindBy(xpath = "//[")
+    private WebElement LinkText;
 
 
     // Method to enter username

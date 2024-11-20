@@ -40,8 +40,8 @@ public class TestBase {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
         // Load URL from config.properties
-        String url = ConfigReader.getProperty("url");
-        driver.get(url);
+//        String url = ConfigReader.getProperty("url");
+//        driver.get(url);
     }
 
     @AfterClass
